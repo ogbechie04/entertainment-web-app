@@ -2,6 +2,11 @@ import { Avatar, Box, Flex, Icon, IconButton, Image } from "@chakra-ui/react";
 import logo from "../assets/logo.svg";
 import avatar from "../assets/image-avatar.png";
 
+/**
+ *
+ * TODO: change profile image to users image
+ */
+
 function NavBar() {
   return (
     <Box
