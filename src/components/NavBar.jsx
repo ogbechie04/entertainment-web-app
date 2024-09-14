@@ -17,21 +17,21 @@ function NavBar() {
       alignItems={"center"}
       justifyContent={{ base: "space-between", lg: "center" }}
       w={{ base: "100%", lg: "fit-content" }}
-      paddingBlockStart={{ base: 4, md: '21px', lg: '35.41px' }}
+      paddingBlockStart={{ base: 4, md: '1.3125rem', lg: '2.213rem' }}
       paddingBlockEnd={{ base: 4, md: 19, lg: 8 }}
       paddingInline={{ base: 4, lg: 7 }}
       paddingInlineStart={{ md: 6, lg: "none" }}
       paddingInlineEnd={{ md: 4, lg: "none" }}
-      borderRadius={{ md: '10px', lg: '20px' }}
+      borderRadius={{ md: '0.625rem', lg: '1.25rem' }}
     >
-      <Image src={logo} alt="logo" w={"fit-content"} width={{base: '25px', md: 'unset'}} height={{base: '20px', md: 'unset'}} />
+      <Image src={logo} alt="logo" w={"fit-content"} width={{base: '1.5625rem', md: 'unset'}} height={{base: '1.25rem', md: 'unset'}} />
       <Flex
         flexDir={{ lg: "column" }}
         w={"fit-content"}
         gap={{ md: 3, lg: 10 }}
         alignItems={"center"}
         marginBlockStart={{ lg: 74.99 }}
-        marginBlockEnd={{ lg: "552px" }}
+        marginBlockEnd={{ lg: "34.5rem" }}
         marginInline={{ base: 10, lg: 0 }}
       >
         {/* ----- Home Icon ----- */}
@@ -119,8 +119,8 @@ function NavBar() {
         <Avatar
           name="Dan Abrahmov"
           src={avatar}
-          w={{ base: "24px", md: "32px", lg: "40px" }}
-          h={{ base: "24px", md: "32px", lg: "40px" }}
+          w={{ base: "1.5rem", md: "2rem", lg: "2.5rem" }}
+          h={{ base: "1.5rem", md: "2rem", lg: "2.5rem" }}
         />
       </Box>
     </Box>

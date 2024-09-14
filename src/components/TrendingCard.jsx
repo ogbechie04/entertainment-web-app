@@ -1,12 +1,12 @@
-import { Box, HStack, Text, Image, Icon, IconButton } from "@chakra-ui/react";
+import { Box, HStack, Text, Image, VStack, Heading } from "@chakra-ui/react";
 import largeT from "../assets/thumbnails/dark-side-of-the-moon/regular/large.jpg";
 import mediumT from "../assets/thumbnails/dark-side-of-the-moon/regular/medium.jpg";
 import smallT from "../assets/thumbnails/dark-side-of-the-moon/regular/small.jpg";
 import oval from "../assets/oval.svg";
 import tv from "../assets/icon-category-tv.svg";
 import movie from "../assets/icon-category-movie.svg";
-import emptyBookmark from "../assets/icon-bookmark-empty.svg";
-import fullBookmark from "../assets/icon-bookmark-full.svg";
+import Bookmark from "./Bookmark";
+import PlayButton from "./PlayButton";
 
 /**
  *
@@ -22,13 +22,13 @@ function TrendingCard(props) {
     year = "2019",
     category = "Movie",
     rating = "PG",
+    title = 'Bed Chem'
   } = props;
   return (
-    <>
     <Box
       position={"relative"}
-      width={{ base: "240px", md: "470px" }}
-      height={{ base: "140px", md: "230px" }}
+      width={{ base: "15rem", md: "29.375rem" }}
+      height={{ base: "8.75rem", md: "14.375rem" }}
       backgroundImage={{
         base: `url(${smallThumbnail})`,
         md: `url(${mediumThumbnail})`,
@@ -38,56 +38,39 @@ function TrendingCard(props) {
       borderRadius={"lg"}
       color={"brand.white"}
     >
-      <Box position={"absolute"} fontFamily={"Outfit"}>
-        <HStack>
-          <Text>{year}</Text>
-          <Image src={oval} alt={"oval"} />
-          <HStack>
-            <Image src={tv} alt={"tv"} />
-            <Text>{category}</Text>
+      <Box
+        position={"absolute"}
+        fontFamily={"Outfit"}
+        width={"100%"}
+        height={"100%"}
+        display={"flex"}
+        alignItems={"center"}
+        paddingInline={6}
+        paddingBlockStart={4}
+        paddingBlockEnd={6}
+        _hover={{ '.play': { visibility: 'visible', opacity: 1 } }}
+      >
+        <VStack alignSelf={"flex-end"} alignItems={'flex-start'} spacing={'0.1875rem'}>
+          <HStack opacity={0.75}>
+            <Text fontSize={{base: 'xs', md: '0.9375rem'}}>{year}</Text>
+            <Image src={oval} alt={"oval"} />
+            <HStack>
+              <Image src={tv} alt={"tv"} />
+              <Text fontSize={{base: 'xs', md: '0.9375rem'}}>{category}</Text>
+            </HStack>
+            <Image src={oval} alt={"oval"} />
+            <Text fontSize={{base: 'xs', md: '0.9375rem'}}>{rating}</Text>
           </HStack>
-          <Image src={oval} alt={"oval"} />
-          <Text>{rating}</Text>
-        </HStack>
-        <HStack cursor={"pointer"}>
-          <Icon
-            xmlns="http://www.w3.org/2000/svg"
-            width="30"
-            height="30"
-            viewBox="0 0 30 30"
-          >
-            <path
-              d="M0 15C0 6.7125 6.7125 0 15 0C23.2875 0 30 6.7125 30 15C30 23.2875 23.2875 30 15 30C6.7125 30 0 23.2875 0 15ZM21 14.5L12 8V21L21 14.5Z"
-              fill="white"
-            />
-          </Icon>
-          <Text>Play</Text>
-        </HStack>
+          <Heading fontFamily={'Outfit'} fontSize={{base: '0.9375rem', md: 'x-large'}} fontWeight={'normal'} lineHeight={'none'}>{title}</Heading>
+        </VStack>
+        <Box className="play" visibility={'hidden'} opacity={0} transition="opacity 0.3s ease">
+          <PlayButton />
+        </Box>
+        <Box alignSelf={"flex-start"} marginInlineStart={"auto"}>
+          <Bookmark />
+        </Box>
       </Box>
     </Box>
-        <Box>
-          <IconButton
-            aria-label="bookmark-label"
-            bgColor="black"
-            opacity={0.500647}
-            isRound={true}
-            _hover={{ bgColor: "unset" }}
-            icon={
-              <Icon
-                stroke-width="1.5"
-                boxSize={8}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z"
-                  stroke="#FFF"
-                  fill="none"
-                />
-              </Icon>
-            }
-          />
-        </Box>
-        </>
   );
 }
 
