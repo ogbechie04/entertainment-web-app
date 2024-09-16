@@ -20,7 +20,7 @@ function TrendingCard(props) {
     mediumThumbnail = mediumT,
     largeThumbnail = largeT,
     year = "2019",
-    category = "Movie",
+    category = "TV",
     rating = "PG",
     title = 'Bed Chem'
   } = props;
@@ -52,19 +52,20 @@ function TrendingCard(props) {
         paddingBlockStart={{base: 2, md: 4}}
         paddingBlockEnd={{base: 4, md: 6}}
         _hover={{ '.play': { visibility: 'visible', opacity: 1 } }}
+        cursor={'pointer'}
       >
         <VStack alignSelf={{base: 'flex-start', md: "flex-end"}} alignItems={'flex-start'} spacing={'0.1875rem'}>
           <HStack opacity={0.75}>
             <Text fontSize={{base: 'xs', md: '0.9375rem'}}>{year}</Text>
             <Image src={oval} alt={"oval"} />
             <HStack>
-              <Image src={tv} alt={"tv"} />
+              <Image src={category === "Movie" ? movie : tv} alt={category === 'movie' ? 'movie' : 'tv'} />
               <Text fontSize={{base: 'xs', md: '0.9375rem'}}>{category}</Text>
             </HStack>
             <Image src={oval} alt={"oval"} />
             <Text fontSize={{base: 'xs', md: '0.9375rem'}}>{rating}</Text>
           </HStack>
-          <Heading fontFamily={'Outfit'} fontSize={{base: '0.9375rem', md: 'x-large'}} fontWeight={'normal'} lineHeight={'none'}>{title}</Heading>
+          <Heading fontFamily={'Outfit'} fontSize={{base: '0.9375rem', md: '2xl'}} fontWeight={'normal'} lineHeight={'none'}>{title}</Heading>
         </VStack>
         <Box className="play" visibility={'hidden'} opacity={0} transition="opacity 0.3s ease" display={{base: 'none', md: 'block'}}>
           <PlayButton />
