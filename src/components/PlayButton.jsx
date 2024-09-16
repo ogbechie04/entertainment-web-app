@@ -2,7 +2,7 @@ import { HStack, Icon, Text } from "@chakra-ui/react";
 
 function PlayButton() {
   return (
-    <HStack cursor={"pointer"} bgColor={'#ffffff40'} paddingBlock={'0.5625rem'} paddingInlineStart={'0.5625rem'} paddingInlineEnd={6} borderRadius={'1.78125rem'} spacing={'1.1875rem'}>
+    <HStack cursor={"pointer"} bgColor={'#ffffff40'} paddingBlock={'0.5625rem'} paddingInlineStart={'0.5625rem'} paddingInlineEnd={{base: '1.25rem', md: 6}} borderRadius={'1.78125rem'} spacing={{base: '0.375rem', md: '1.1875rem'}}>
       <Icon
         xmlns="http://www.w3.org/2000/svg"
         width="30"

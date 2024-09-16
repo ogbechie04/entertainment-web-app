@@ -44,13 +44,16 @@ function TrendingCard(props) {
         width={"100%"}
         height={"100%"}
         display={"flex"}
+        flexDirection={{ base: "column-reverse", md: "row" }}
         alignItems={"center"}
-        paddingInline={6}
-        paddingBlockStart={4}
-        paddingBlockEnd={6}
+        justifyContent={{base: "space-between", md: 'unset'}}
+        paddingInlineStart={{base: 4, md: 6}}
+        paddingInlineEnd={{base: 2, md: 6}}
+        paddingBlockStart={{base: 2, md: 4}}
+        paddingBlockEnd={{base: 4, md: 6}}
         _hover={{ '.play': { visibility: 'visible', opacity: 1 } }}
       >
-        <VStack alignSelf={"flex-end"} alignItems={'flex-start'} spacing={'0.1875rem'}>
+        <VStack alignSelf={{base: 'flex-start', md: "flex-end"}} alignItems={'flex-start'} spacing={'0.1875rem'}>
           <HStack opacity={0.75}>
             <Text fontSize={{base: 'xs', md: '0.9375rem'}}>{year}</Text>
             <Image src={oval} alt={"oval"} />
@@ -63,7 +66,7 @@ function TrendingCard(props) {
           </HStack>
           <Heading fontFamily={'Outfit'} fontSize={{base: '0.9375rem', md: 'x-large'}} fontWeight={'normal'} lineHeight={'none'}>{title}</Heading>
         </VStack>
-        <Box className="play" visibility={'hidden'} opacity={0} transition="opacity 0.3s ease">
+        <Box className="play" visibility={'hidden'} opacity={0} transition="opacity 0.3s ease" display={{base: 'none', md: 'block'}}>
           <PlayButton />
         </Box>
         <Box alignSelf={"flex-start"} marginInlineStart={"auto"}>

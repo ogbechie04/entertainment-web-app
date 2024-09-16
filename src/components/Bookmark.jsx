@@ -9,7 +9,7 @@ function Bookmark() {
   return (
     <Box>
       <IconButton
-        aria-label="bookmart-empty"
+        aria-label="bookmark-empty"
         bgColor="#00000080"
         borderRadius={"50%"}
         _hover={{ bgColor: "#FFF" }}
