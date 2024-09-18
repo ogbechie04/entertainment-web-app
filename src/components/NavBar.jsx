@@ -1,6 +1,6 @@
 import { Avatar, Box, Flex, Icon, IconButton, Image } from "@chakra-ui/react";
-import logo from "../assets/logo.svg";
-import avatar from "../assets/image-avatar.png";
+import logo from "/assets/logo.svg";
+import avatar from "/assets/image-avatar.png";
 
 /**
  *

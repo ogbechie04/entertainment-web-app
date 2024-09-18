@@ -10,6 +10,7 @@ function SearchBar(props) {
       fontFamily={"Outfit"}
       justifyContent={"center"}
       color={"brand.white"}
+      width={{lg: '90%'}}
     >
       <Icon
         as={FiSearch}
