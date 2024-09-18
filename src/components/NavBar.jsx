@@ -12,6 +12,7 @@ function NavBar() {
     <Box
       backgroundColor={"brand.semiDarkBlue"}
       h={"100%"}
+      maxHeight={{lg: '60rem'}}
       display={"flex"}
       flexDir={{ lg: "column" }}
       alignItems={"center"}
