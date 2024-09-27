@@ -59,7 +59,7 @@ function TrendingCard(props) {
           alignItems={"flex-start"}
           spacing={"0.1875rem"}
         >
-          <HStack opacity={0.75}>
+          <HStack opacity={0.75} color={'brand.white'}>
             <Text fontSize={{ base: "xs", md: "0.9375rem" }}>{year}</Text>
             <Image src={oval} alt={"oval"} />
             <HStack>
@@ -77,6 +77,7 @@ function TrendingCard(props) {
             fontSize={{ base: "0.9375rem", md: "2xl" }}
             fontWeight={"normal"}
             lineHeight={"none"}
+            color={'brand.white'}
           >
             {title}
           </Heading>

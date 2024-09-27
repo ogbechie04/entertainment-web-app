@@ -64,10 +64,11 @@ function MovieCard(props) {
       <VStack
         alignSelf={{ base: "flex-start", md: "flex-end" }}
         alignItems={"flex-start"}
-        spacing={{base: '0.25rem', md: "0.3125rem"}}
+        spacing={{ base: "0.25rem", md: "0.3125rem" }}
         fontFamily={"Outfit"}
+        marginBlockStart={2}
       >
-        <HStack opacity={0.75}>
+        <HStack opacity={0.75} color={"brand.white"}>
           <Text fontSize={{ base: "0.6875rem", md: "0.8125rem" }}>{year}</Text>
           <Image src={oval} alt={"oval"} />
           <HStack>
@@ -86,6 +87,7 @@ function MovieCard(props) {
           fontSize={{ base: "sm", md: "large" }}
           fontWeight={"normal"}
           lineHeight={"none"}
+          color={"brand.white"}
         >
           {title}
         </Heading>
