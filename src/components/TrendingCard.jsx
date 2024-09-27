@@ -87,7 +87,8 @@ function TrendingCard(props) {
           opacity={0}
           transition="opacity 0.3s ease"
           display={{ base: "none", md: "block" }}
-          marginInline={'auto'}
+          position={"absolute"}
+          right={'38%'}
         >
           <PlayButton />
         </Box>

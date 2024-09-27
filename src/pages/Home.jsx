@@ -8,7 +8,7 @@ function Home() {
   console.log(movies);
   console.log(movies[0]);
   console.log(movies[0].title);
-  console.log(movies[0].thumbnail.trending.small);
+
 
   return (
     <Box
@@ -16,9 +16,11 @@ function Home() {
       display={"flex"}
       flexDirection={{ base: "column", lg: "row" }}
       height={"100%"}
+      width={"100vw"}
     >
       <Box
         width={{ lg: "fit-content" }}
+        maxWidth={"100%"}
         paddingBlockStart={{ md: "1.4375rem", lg: 8 }}
         paddingInlineStart={{ md: "1.5625rem", lg: 8 }}
         paddingInlineEnd={{ md: 6, lg: "unset" }}
@@ -26,13 +28,18 @@ function Home() {
         <NavBar />
       </Box>
       <Box
-        width={"100%"}
+        flex={1}
+        maxWidth={"100%"}
         marginBlockStart={{ base: 6, md: "2.0625rem", lg: 16 }}
         marginInlineStart={{ base: 4, md: "1.5625rem", lg: 9 }}
+        overflow={"hidden"}
       >
         <SearchBar placeholderText={"Search for a movie"} />
         {/* ----- trending section ----- */}
-        <Box marginBlockStart={{ base: 6, md: "2.0625rem", lg: "2.125rem" }}>
+        <Box
+          marginBlockStart={{ base: 6, md: "2.0625rem", lg: "2.125rem" }}
+          maxWidth={"100%"}
+        >
           <Heading
             fontSize={{ base: "xl", md: "2rem" }}
             color={"brand.white"}
@@ -42,21 +49,31 @@ function Home() {
           >
             Trending
           </Heading>
+          <Flex
+            gap={10}
+            overflowY={"auto"}
+            maxWidth={"100%"}
+            whiteSpace={"nowrap"}
+            marginBlockStart={"1.5625rem"}
+            paddingBlockEnd={"1.5625rem"}
+          >
+            {movies.map((movie, index) => {
+              console.log(movie.thumbnail.regular.small);
+
+              return (
+                <TrendingCard
+                  key={index}
+                  title={movie.title}
+                  category={movie.category}
+                  rating={movie.rating}
+                  year={movie.year}
+                  smallThumbnail={movie?.thumbnail?.trending?.small ?? movie?.thumbnail?.regular?.small}
+                  largeThumbnail={movie?.thumbnail?.trending?.large ?? movie?.thumbnail?.regular?.large}
+                />
+              );
+            })}
+          </Flex>
         </Box>
-        <Flex gap={10} overflowX={'auto'} whiteSpace={'nowrap'} wrap={'nowrap'} width={'100vw'}>
-          {movies.map((movie, index) => (
-            <TrendingCard
-              key={index}
-              title={movie.title}
-              category={movie.category}
-              rating={movie.rating}
-              year={movie.year}
-              smallThumbnail={movie?.thumbnail?.trending?.small}
-              largeThumbnail={movie?.thumbnail?.trending?.large}
-            />
-          ))}
-        </Flex>
-        <TrendingCard />
         {/* ----- recommended for you ----- */}
         <Box></Box>
       </Box>
