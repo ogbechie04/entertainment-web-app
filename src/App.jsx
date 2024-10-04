@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import MoviesPage from './pages/MoviesPage'
+import TvSeriesPage from './pages/TvSeriesPage'
+import LoginPage from './pages/LoginPage'
 // import Bookmark from './components/Bookmark'
 // import CustomButton from './components/CustomButton'
 // import MovieCard from './components/MovieCard'
@@ -13,8 +15,10 @@ function App() {
     <>
     <Router>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/movies' element={<MoviesPage />} />
+        <Route path='/tv-series' element={<TvSeriesPage />} />
       </Routes>
     </Router>
     </>

@@ -26,7 +26,7 @@ function NavBar() {
       paddingInlineEnd={{ md: 4, lg: "none" }}
       borderRadius={{ md: "0.625rem", lg: "1.25rem" }}
     >
-      <Link to={"/"}>
+      <Link to={"/home"}>
         <Image
           src={logo}
           alt="logo"
@@ -45,7 +45,7 @@ function NavBar() {
         marginInline={{ base: 10, lg: 0 }}
       >
         {/* ----- Home Icon ----- */}
-        <Link to={"/"}>
+        <Link to={"/home"}>
           <IconButton
             aria-label="home-icon"
             bg={"unset"}
@@ -89,25 +89,27 @@ function NavBar() {
           />
         </Link>
         {/* ----- TV Series Icon ----- */}
-        <IconButton
-          bg={"unset"}
-          boxSize={{ base: 4, md: 5 }}
-          _hover={{ bg: "unset" }}
-          aria-label="tvseries-icon"
-          icon={
-            <Icon viewBox="0 0 20 20" boxSize={{ base: 4, md: 5 }}>
-              <path
-                d="M20 4.481H9.08l2.7-3.278L10.22 0 7 3.909 3.78.029 2.22 1.203l2.7 3.278H0V20h20V4.481Zm-8 13.58H2V6.42h10v11.64Zm5-3.88h-2v-1.94h2v1.94Zm0-3.88h-2V8.36h2v1.94Z"
-                fill="#5A698F"
-              />
-            </Icon>
-          }
-          sx={{
-            "&:hover path": {
-              fill: "white",
-            },
-          }}
-        />
+        <Link to={'/tv-series'}>
+          <IconButton
+            bg={"unset"}
+            boxSize={{ base: 4, md: 5 }}
+            _hover={{ bg: "unset" }}
+            aria-label="tvseries-icon"
+            icon={
+              <Icon viewBox="0 0 20 20" boxSize={{ base: 4, md: 5 }}>
+                <path
+                  d="M20 4.481H9.08l2.7-3.278L10.22 0 7 3.909 3.78.029 2.22 1.203l2.7 3.278H0V20h20V4.481Zm-8 13.58H2V6.42h10v11.64Zm5-3.88h-2v-1.94h2v1.94Zm0-3.88h-2V8.36h2v1.94Z"
+                  fill="#5A698F"
+                />
+              </Icon>
+            }
+            sx={{
+              "&:hover path": {
+                fill: "white",
+              },
+            }}
+          />
+        </Link>
         {/* ----- Bookmark Icon ----- */}
         <IconButton
           bg={"unset"}
