@@ -7,6 +7,8 @@ import {
   Input,
   Button,
   FormErrorMessage,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import logo from "/assets/logo.svg";
@@ -23,6 +25,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -55,6 +58,10 @@ function LoginPage() {
       setPasswordError("Password is required");
       valid = false;
     }
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -101,7 +108,10 @@ function LoginPage() {
               caret-color: #fc4747;
             `}
           >
-            <FormControl isInvalid={!!emailError} position={"relative"}>
+            <FormControl
+              isInvalid={!!emailError}
+              // position={"relative"}
+            >
               <Input
                 value={email}
                 onChange={handleEmailChange}
@@ -117,7 +127,10 @@ function LoginPage() {
                 focusBorderColor="brand.white"
                 width={"100%"}
               />
-              <FormErrorMessage
+              <FormErrorMessage color={"brand.red"} fontSize={"0.8125rem"}>
+                {emailError}
+              </FormErrorMessage>
+              {/* <FormErrorMessage
                 color={"brand.red"}
                 position={"absolute"}
                 top={"-10%"}
@@ -125,24 +138,45 @@ function LoginPage() {
                 fontSize={"0.75rem"}
               >
                 {emailError}
-              </FormErrorMessage>
+              </FormErrorMessage> */}
             </FormControl>
             <FormControl isInvalid={!!passwordError}>
-              <Input
-                value={password}
-                onChange={handlePasswordChange}
-                name="password"
-                placeholder="Password"
-                type="password"
-                variant={"flushed"}
-                _placeholder={{ color: "white", opacity: "0.5" }}
-                paddingInlineStart={4}
-                paddingBlockEnd={"1.125rem"}
-                borderBottomColor={"brand.greyishBlue"}
-                fontSize={"0.9375rem"}
-                focusBorderColor="brand.white"
-              />
-              <FormErrorMessage
+              <InputGroup>
+                <Input
+                  value={password}
+                  onChange={handlePasswordChange}
+                  name="password"
+                  placeholder="Password"
+                  type={showPassword ? "text" : "password"}
+                  variant={"flushed"}
+                  _placeholder={{ color: "white", opacity: "0.5" }}
+                  paddingInlineStart={4}
+                  paddingBlockEnd={"1.125rem"}
+                  borderBottomColor={"brand.greyishBlue"}
+                  fontSize={"0.9375rem"}
+                  focusBorderColor="brand.white"
+                />
+                <InputRightElement width={""} marginBlockEnd={4}>
+                  <Button
+                    onClick={handleShowPassword}
+                    size={"sm"}
+                    backgroundColor={"brand.red"}
+                    color={"brand.white"}
+                    fontSize={"0.9375rem"}
+                    fontWeight={"normal"}
+                    _hover={{
+                      backgroundColor: "brand.white",
+                      color: "brand.semiDarkBlue",
+                    }}
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              <FormErrorMessage color={"brand.red"} fontSize={"0.8125rem"}>
+                {passwordError}
+              </FormErrorMessage>
+              {/* <FormErrorMessage
                 color={"brand.red"}
                 position={"absolute"}
                 top={"-10%"}
@@ -150,7 +184,7 @@ function LoginPage() {
                 fontSize={"0.75rem"}
               >
                 {passwordError}
-              </FormErrorMessage>
+              </FormErrorMessage> */}
             </FormControl>
           </VStack>
           <Button
