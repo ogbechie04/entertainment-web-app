@@ -17,15 +17,18 @@ import { useState } from "react";
 
 /**
  *
- * TODO:
+ * TODO: add supabase/firebase configuration
  */
 
-function LoginPage() {
+function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [repeatPasswordError, setRepeatPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -45,6 +48,15 @@ function LoginPage() {
     }
   };
 
+  const handleRepeatPasswordChange = (e) => {
+    setRepeatPassword(e.target.value);
+    if (!e.target.value) {
+      setRepeatPasswordError("Password is required");
+    } else {
+      setRepeatPasswordError("");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -58,11 +70,23 @@ function LoginPage() {
       setPasswordError("Password is required");
       valid = false;
     }
+    if (!repeatPassword) {
+      setRepeatPasswordError("Password is required");
+      valid = false;
+    }
+    if (password !== repeatPassword) {
+      setRepeatPasswordError("Passwords do not match");
+      valid = false;
+    }
   };
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleShowRepeatPassword = () => {
+    setShowRepeatPassword(!showRepeatPassword)
+  }
 
   return (
     <Box
@@ -98,7 +122,7 @@ function LoginPage() {
           letterSpacing={"-.5px"}
           alignSelf={"flex-start"}
         >
-          Login
+          Sign Up
         </Text>
         <form action="" style={{ width: "100%" }} onSubmit={handleSubmit}>
           <VStack
@@ -131,14 +155,14 @@ function LoginPage() {
                 {emailError}
               </FormErrorMessage>
               {/* <FormErrorMessage
-                color={"brand.red"}
-                position={"absolute"}
-                top={"-10%"}
-                right={0}
-                fontSize={"0.75rem"}
-              >
-                {emailError}
-              </FormErrorMessage> */}
+                  color={"brand.red"}
+                  position={"absolute"}
+                  top={"-10%"}
+                  right={0}
+                  fontSize={"0.75rem"}
+                >
+                  {emailError}
+                </FormErrorMessage> */}
             </FormControl>
             <FormControl isInvalid={!!passwordError}>
               <InputGroup>
@@ -177,14 +201,60 @@ function LoginPage() {
                 {passwordError}
               </FormErrorMessage>
               {/* <FormErrorMessage
-                color={"brand.red"}
-                position={"absolute"}
-                top={"-10%"}
-                right={0}
-                fontSize={"0.75rem"}
-              >
-                {passwordError}
-              </FormErrorMessage> */}
+                  color={"brand.red"}
+                  position={"absolute"}
+                  top={"-10%"}
+                  right={0}
+                  fontSize={"0.75rem"}
+                >
+                  {passwordError}
+                </FormErrorMessage> */}
+            </FormControl>
+            <FormControl isInvalid={!!repeatPasswordError}>
+              <InputGroup>
+                <Input
+                  value={repeatPassword}
+                  onChange={handleRepeatPasswordChange}
+                  name="password"
+                  placeholder="Repeat password"
+                  type={showRepeatPassword ? "text" : "password"}
+                  variant={"flushed"}
+                  _placeholder={{ color: "white", opacity: "0.5" }}
+                  paddingInlineStart={4}
+                  paddingBlockEnd={"1.125rem"}
+                  borderBottomColor={"brand.greyishBlue"}
+                  fontSize={"0.9375rem"}
+                  focusBorderColor="brand.white"
+                />
+                <InputRightElement width={""} marginBlockEnd={4}>
+                  <Button
+                    onClick={handleShowRepeatPassword}
+                    size={"sm"}
+                    backgroundColor={"brand.red"}
+                    color={"brand.white"}
+                    fontSize={"0.9375rem"}
+                    fontWeight={"normal"}
+                    _hover={{
+                      backgroundColor: "brand.white",
+                      color: "brand.semiDarkBlue",
+                    }}
+                  >
+                    {showRepeatPassword ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              <FormErrorMessage color={"brand.red"} fontSize={"0.8125rem"}>
+                {repeatPasswordError}
+              </FormErrorMessage>
+              {/* <FormErrorMessage
+                  color={"brand.red"}
+                  position={"absolute"}
+                  top={"-10%"}
+                  right={0}
+                  fontSize={"0.75rem"}
+                >
+                  {passwordError}
+                </FormErrorMessage> */}
             </FormControl>
           </VStack>
           <Button
@@ -202,14 +272,14 @@ function LoginPage() {
               color: "brand.semiDarkBlue",
             }}
           >
-            Login to your account
+            Create an account
           </Button>
         </form>
         <Text color={"brand.white"} textAlign={"center"}>
-          Don’t have an account?&nbsp;
-          <Link to={'/signup'}>
+        Already have an account?&nbsp;
+          <Link to={"/"}>
             <Text color={"brand.red"} display={"inline"}>
-              Sign Up
+              Login
             </Text>
           </Link>
         </Text>
@@ -218,4 +288,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default SignUpPage;

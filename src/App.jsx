@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import MoviesPage from './pages/MoviesPage'
 import TvSeriesPage from './pages/TvSeriesPage'
 import LoginPage from './pages/LoginPage'
+import SignUpPage from './pages/SignUpPage'
 // import Bookmark from './components/Bookmark'
 // import CustomButton from './components/CustomButton'
 // import MovieCard from './components/MovieCard'
@@ -19,6 +20,7 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/movies' element={<MoviesPage />} />
         <Route path='/tv-series' element={<TvSeriesPage />} />
+        <Route path='/signup' element={<SignUpPage />} />
       </Routes>
     </Router>
     </>
