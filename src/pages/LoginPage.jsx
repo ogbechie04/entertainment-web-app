@@ -9,11 +9,16 @@ import {
   FormErrorMessage,
   InputGroup,
   InputRightElement,
+  useToast,
+  Icon,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "/assets/logo.svg";
 import { css } from "@emotion/react";
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import auth from "../../firebase";
+import { FiCheckCircle } from "react-icons/fi";
 
 /**
  *
@@ -26,6 +31,8 @@ function LoginPage() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const toast = useToast();
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -45,7 +52,7 @@ function LoginPage() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     let valid = true;
@@ -57,6 +64,33 @@ function LoginPage() {
     if (!password) {
       setPasswordError("Password is required");
       valid = false;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast({
+        title: "Login successful!",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        render: () => (
+          <Box
+            color="#161D2F"
+            p={3}
+            bg="#FFFFFF"
+            borderRadius="md"
+            display={"flex"}
+            alignItems={"center"}
+            gap={4}
+          >
+            <Icon as={FiCheckCircle} />
+            <Text>Login successful!</Text>
+          </Box>
+        ),
+      });
+      navigate("/home");
+    } catch (error) {
+      console.log(`Unable to login: ${error}`);
     }
   };
 
@@ -100,7 +134,7 @@ function LoginPage() {
         >
           Login
         </Text>
-        <form action="" style={{ width: "100%" }} onSubmit={handleSubmit}>
+        <form action="" style={{ width: "100%" }} onSubmit={handleLogin}>
           <VStack
             gap={6}
             color={"brand.white"}
@@ -207,7 +241,7 @@ function LoginPage() {
         </form>
         <Text color={"brand.white"} textAlign={"center"}>
           Don’t have an account?&nbsp;
-          <Link to={'/signup'}>
+          <Link to={"/signup"}>
             <Text color={"brand.red"} display={"inline"}>
               Sign Up
             </Text>

@@ -9,11 +9,18 @@ import {
   FormErrorMessage,
   InputGroup,
   InputRightElement,
+  useToast,
+  Icon,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "/assets/logo.svg";
 import { css } from "@emotion/react";
 import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import auth, { db } from "../../firebase";
+import { FiCheckCircle } from "react-icons/fi";
+import { setDoc, doc } from "firebase/firestore";
+import { em } from "framer-motion/client";
 
 /**
  *
@@ -29,6 +36,8 @@ function SignUpPage() {
   const [repeatPasswordError, setRepeatPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+  const toast = useToast();
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -57,7 +66,7 @@ function SignUpPage() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     let valid = true;
@@ -78,6 +87,41 @@ function SignUpPage() {
       setRepeatPasswordError("Passwords do not match");
       valid = false;
     }
+    if (valid) {
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        const user = auth.currentUser;
+        console.log(user);
+        toast({
+          title: "Account created.",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          render: () => {
+            <Box
+              color="#161D2F"
+              p={3}
+              bg="#FFFFFF"
+              borderRadius="md"
+              display={"flex"}
+              alignItems={"center"}
+              gap={4}
+            >
+              <Icon as={FiCheckCircle} />
+              <Text>Registration Successful!</Text>
+            </Box>;
+          },
+        });
+        if (user) {
+          await setDoc(doc(db, "Users", user.uid), {
+            email: user.email,
+          });
+        }
+        navigate("/home");
+      } catch (error) {
+        console.log(`error`, error);
+      }
+    }
   };
 
   const handleShowPassword = () => {
@@ -85,8 +129,8 @@ function SignUpPage() {
   };
 
   const handleShowRepeatPassword = () => {
-    setShowRepeatPassword(!showRepeatPassword)
-  }
+    setShowRepeatPassword(!showRepeatPassword);
+  };
 
   return (
     <Box
@@ -124,7 +168,7 @@ function SignUpPage() {
         >
           Sign Up
         </Text>
-        <form action="" style={{ width: "100%" }} onSubmit={handleSubmit}>
+        <form action="" style={{ width: "100%" }} onSubmit={handleSignUp}>
           <VStack
             gap={6}
             color={"brand.white"}
@@ -276,7 +320,7 @@ function SignUpPage() {
           </Button>
         </form>
         <Text color={"brand.white"} textAlign={"center"}>
-        Already have an account?&nbsp;
+          Already have an account?&nbsp;
           <Link to={"/"}>
             <Text color={"brand.red"} display={"inline"}>
               Login
