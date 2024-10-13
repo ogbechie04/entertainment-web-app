@@ -20,12 +20,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth, { db } from "../../firebase";
 import { FiCheckCircle } from "react-icons/fi";
 import { setDoc, doc } from "firebase/firestore";
-import { em } from "framer-motion/client";
-
-/**
- *
- * TODO: add supabase/firebase configuration
- */
 
 function SignUpPage() {
   const [email, setEmail] = useState("");
@@ -154,10 +148,10 @@ function SignUpPage() {
       <VStack
         backgroundColor={"brand.semiDarkBlue"}
         width={"100%"}
-        padding={8}
-        borderRadius={"1.25rem"}
+        padding={{base: 6, md: 8}}
+        borderRadius={{base: '0.625rem', md: "1.25rem"}}
         spacing={10}
-        maxWidth={"25rem"}
+        maxWidth={{base: '20.4375rem', md: "25rem"}}
         marginBlockStart={"5.1869rem"}
       >
         <Text
@@ -194,6 +188,15 @@ function SignUpPage() {
                 fontSize={"0.9375rem"}
                 focusBorderColor="brand.white"
                 width={"100%"}
+                sx={{
+                  "&:-webkit-autofill": {
+                    boxShadow: "0 0 0px 1000px transparent inset !important",
+                    WebkitTextFillColor: "inherit !important",
+                    fontSize: "inherit !important",
+                    transition:
+                      "background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s",
+                  },
+                }}
               />
               <FormErrorMessage color={"brand.red"} fontSize={"0.8125rem"}>
                 {emailError}
@@ -223,6 +226,15 @@ function SignUpPage() {
                   borderBottomColor={"brand.greyishBlue"}
                   fontSize={"0.9375rem"}
                   focusBorderColor="brand.white"
+                  sx={{
+                    "&:-webkit-autofill": {
+                      boxShadow: "0 0 0px 1000px transparent inset !important",
+                      WebkitTextFillColor: "inherit !important",
+                      fontSize: "inherit !important",
+                      transition:
+                        "background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s",
+                    },
+                  }}
                 />
                 <InputRightElement width={""} marginBlockEnd={4}>
                   <Button
@@ -244,15 +256,6 @@ function SignUpPage() {
               <FormErrorMessage color={"brand.red"} fontSize={"0.8125rem"}>
                 {passwordError}
               </FormErrorMessage>
-              {/* <FormErrorMessage
-                  color={"brand.red"}
-                  position={"absolute"}
-                  top={"-10%"}
-                  right={0}
-                  fontSize={"0.75rem"}
-                >
-                  {passwordError}
-                </FormErrorMessage> */}
             </FormControl>
             <FormControl isInvalid={!!repeatPasswordError}>
               <InputGroup>
@@ -269,6 +272,15 @@ function SignUpPage() {
                   borderBottomColor={"brand.greyishBlue"}
                   fontSize={"0.9375rem"}
                   focusBorderColor="brand.white"
+                  sx={{
+                    "&:-webkit-autofill": {
+                      boxShadow: "0 0 0px 1000px transparent inset !important",
+                      WebkitTextFillColor: "inherit !important",
+                      fontSize: "inherit !important",
+                      transition:
+                        "background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s",
+                    },
+                  }}
                 />
                 <InputRightElement width={""} marginBlockEnd={4}>
                   <Button

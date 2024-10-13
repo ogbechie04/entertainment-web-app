@@ -3,11 +3,6 @@ import logo from "/assets/logo.svg";
 import avatar from "/assets/image-avatar.png";
 import { Link } from "react-router-dom";
 
-/**
- *
- * TODO: change profile image to users image
- */
-
 function NavBar() {
   return (
     <Box
@@ -111,6 +106,7 @@ function NavBar() {
           />
         </Link>
         {/* ----- Bookmark Icon ----- */}
+        <Link to={'/bookmarks'}>
         <IconButton
           bg={"unset"}
           boxSize={{ base: 4, md: 5 }}
@@ -130,6 +126,7 @@ function NavBar() {
             },
           }}
         />
+        </Link>
       </Flex>
       <Box border={"1px solid white"} w={"fit-content"} borderRadius={"50%"}>
         <Avatar

@@ -2,7 +2,7 @@ import { Box, VStack, HStack, Text, Image, Heading } from "@chakra-ui/react";
 import largeT from "/assets/thumbnails/dark-side-of-the-moon/regular/large.jpg";
 import mediumT from "/assets/thumbnails/dark-side-of-the-moon/regular/medium.jpg";
 import smallT from "/assets/thumbnails/dark-side-of-the-moon/regular/small.jpg";
-import Bookmark from "./Bookmark";
+import BookmarkButton from "./BookmarkButton";
 import oval from "/assets/oval.svg";
 import tv from "/assets/icon-category-tv.svg";
 import movie from "/assets/icon-category-movie.svg";
@@ -47,7 +47,7 @@ function MovieCard(props) {
           _hover={{ ".play": { visibility: "visible", opacity: 1 } }}
         >
           <Box alignSelf={"flex-end"}>
-            <Bookmark />
+            <BookmarkButton title={title} />
           </Box>
           <Box
             className="play"

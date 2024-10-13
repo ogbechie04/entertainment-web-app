@@ -1,24 +1,34 @@
-import { Box, Heading, SimpleGrid, Flex } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SeachBar";
-import movies from "../../src/data.json";
-import TrendingCard from "../components/TrendingCard";
 import MovieCard from "../components/MovieCard";
+import movies from "../../src/data.json";
+import { BookmarkContext } from "../components/BookmarkContext";
+import { useContext } from "react";
 
-function Home() {
-  // console.log(movies);
-  // console.log(movies[0]);
-  // console.log(movies[0].title);
+function BookmarkPage() {
+  const { bookmarks } = useContext(BookmarkContext);
+  console.log(bookmarks);
+
+  const bookmarkedMovies = movies.filter((movie) =>
+    bookmarks.includes(movie.title)
+  );
+
+  const moviesBookmarked = bookmarkedMovies.filter(
+    (bookmark) => bookmark.category === "Movie"
+  );
+  const tvSeriesBookmarked = bookmarkedMovies.filter(
+    (bookmark) => bookmark.category === "TV Series"
+  );
 
   return (
     <Box
       backgroundColor={"brand.darkBlue"}
       display={"flex"}
       flexDirection={{ base: "column", lg: "row" }}
-      height={"100%"}
+      height={{ base: "100vh", lg: "100%" }}
       width={"100vw"}
-      paddingBlockEnd={{ base: '3.25rem', md: "3.5rem", lg: '3.8125rem' }}
-
+      paddingBlockEnd={{ base: "3.25rem", md: "3.5rem", lg: "3.8125rem" }}
     >
       <Box
         width={{ lg: "fit-content" }}
@@ -36,12 +46,12 @@ function Home() {
         marginInlineStart={{ base: 4, md: "1.5625rem", lg: 9 }}
         overflow={"hidden"}
       >
-        <SearchBar placeholderText={"Search for a movie"} />
-        {/* ----- trending section ----- */}
+        <SearchBar placeholderText={"Search for bookmarked shows"} />
+        {/* ----- bookmared movies section ----- */}
         <Box
           marginBlockStart={{ base: 6, md: "2.0625rem", lg: "2.125rem" }}
           maxWidth={"100%"}
-          display={"flex"}
+          display={moviesBookmarked.length === 0 ? 'none' : "flex"}
           flexDirection={"column"}
           gap={{ base: "1rem", md: "1.5625rem" }}
         >
@@ -52,68 +62,16 @@ function Home() {
             fontWeight={"normal"}
             fontFamily={"Outfit"}
           >
-            Trending
-          </Heading>
-          <Flex
-            gap={10}
-            overflowY={"auto"}
-            maxWidth={"100%"}
-            whiteSpace={"nowrap"}
-            paddingInlineEnd={"1.5625rem"}
-            sx={{
-                "::-webkit-scrollbar": {
-                  display: "none",
-                },
-                "-ms-overflow-style": "none",  // For Internet Explorer and Edge
-                "scrollbar-width": "none",     // For Firefox
-              }}
-          >
-            {movies.map((movie, index) => {
-              return (
-                <TrendingCard
-                  key={index}
-                  title={movie.title}
-                  category={movie.category}
-                  rating={movie.rating}
-                  year={movie.year}
-                  smallThumbnail={
-                    movie?.thumbnail?.trending?.small ??
-                    movie?.thumbnail?.regular?.small
-                  }
-                  largeThumbnail={
-                    movie?.thumbnail?.trending?.large ??
-                    movie?.thumbnail?.regular?.large
-                  }
-                />
-              );
-            })}
-          </Flex>
-        </Box>
-        {/* ----- recommended for you section ----- */}
-        <Box
-          marginBlockStart={{ base: 6, md: "2.0625rem", lg: "2.125rem" }}
-          maxWidth={"100%"}
-          display={"flex"}
-          flexDirection={"column"}
-          gap={{ base: "1rem", md: "1.5625rem" }}
-        >
-          <Heading
-            fontSize={{ base: "xl", md: "2rem" }}
-            color={"brand.white"}
-            letterSpacing={{ base: "-0.312px", md: "-0.5px" }}
-            fontWeight={"normal"}
-            fontFamily={"Outfit"}
-          >
-            Recommended for you
+            Bookmarked Movies
           </Heading>
           <SimpleGrid
             columns={{ base: 2, md: 3, lg: 4 }}
             maxWidth={"100%"}
             paddingInlineEnd={"1.5625rem"}
-            columnGap={{base: '0.9375rem', md: '1.8125rem', lg: '2.5rem'}}
-            rowGap={{base: '1rem', md: '1.5rem', lg: '2rem'}}
+            columnGap={{ base: "0.9375rem", md: "1.8125rem", lg: "2.5rem" }}
+            rowGap={{ base: "1rem", md: "1.5rem", lg: "2rem" }}
           >
-            {movies.map((movie, index) => {
+            {moviesBookmarked.map((movie, index) => {
               return (
                 <MovieCard
                   key={index}
@@ -121,15 +79,49 @@ function Home() {
                   category={movie.category}
                   rating={movie.rating}
                   year={movie.year}
-                  smallThumbnail={
-                    movie?.thumbnail?.regular?.small
-                  }
-                  mediumThumbnail={
-                    movie?.thumbnail?.regular?.medium
-                  }
-                  largeThumbnail={
-                    movie?.thumbnail?.regular?.large
-                  }
+                  smallThumbnail={movie?.thumbnail?.regular?.small}
+                  mediumThumbnail={movie?.thumbnail?.regular?.medium}
+                  largeThumbnail={movie?.thumbnail?.regular?.large}
+                />
+              );
+            })}
+          </SimpleGrid>
+        </Box>
+        {/* ----- bookmarked TV series section ----- */}
+        <Box
+          marginBlockStart={{ base: 6, md: "12", lg: "10" }}
+          maxWidth={"100%"}
+          display={tvSeriesBookmarked.length === 0 ? 'none' : "flex"}
+          flexDirection={"column"}
+          gap={{ base: "1rem", md: "1.5625rem" }}
+        >
+          <Heading
+            fontSize={{ base: "xl", md: "2rem" }}
+            color={"brand.white"}
+            letterSpacing={{ base: "-0.312px", md: "-0.5px" }}
+            fontWeight={"normal"}
+            fontFamily={"Outfit"}
+          >
+            Bookmarked TV Series
+          </Heading>
+          <SimpleGrid
+            columns={{ base: 2, md: 3, lg: 4 }}
+            maxWidth={"100%"}
+            paddingInlineEnd={"1.5625rem"}
+            columnGap={{ base: "0.9375rem", md: "1.8125rem", lg: "2.5rem" }}
+            rowGap={{ base: "1rem", md: "1.5rem", lg: "2rem" }}
+          >
+            {tvSeriesBookmarked.map((movie, index) => {
+              return (
+                <MovieCard
+                  key={index}
+                  title={movie.title}
+                  category={movie.category}
+                  rating={movie.rating}
+                  year={movie.year}
+                  smallThumbnail={movie?.thumbnail?.regular?.small}
+                  mediumThumbnail={movie?.thumbnail?.regular?.medium}
+                  largeThumbnail={movie?.thumbnail?.regular?.large}
                 />
               );
             })}
@@ -140,4 +132,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default BookmarkPage;

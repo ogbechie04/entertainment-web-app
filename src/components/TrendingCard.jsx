@@ -5,7 +5,7 @@ import smallT from "/assets/thumbnails/dark-side-of-the-moon/regular/small.jpg";
 import oval from "/assets/oval.svg";
 import tv from "/assets/icon-category-tv.svg";
 import movie from "/assets/icon-category-movie.svg";
-import Bookmark from "./Bookmark";
+import BookmarkButton from "./BookmarkButton";
 import PlayButton from "./PlayButton";
 
 /**
@@ -94,7 +94,7 @@ function TrendingCard(props) {
           <PlayButton />
         </Box>
         <Box alignSelf={"flex-start"} marginInlineStart={"auto"}>
-          <Bookmark />
+          <BookmarkButton title={title} />
         </Box>
       </Box>
     </Box>
