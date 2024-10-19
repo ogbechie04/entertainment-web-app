@@ -339,6 +339,14 @@ function SignUpPage() {
             </Text>
           </Link>
         </Text>
+        <Text color={"brand.white"} alignSelf={'flex-end'} fontSize={'x-small'}>
+          Or go to&nbsp;
+          <Link to={"/home"}>
+            <Text color={"brand.red"} display={"inline"}>
+              Home
+            </Text>
+          </Link>
+        </Text>
       </VStack>
     </Box>
   );
