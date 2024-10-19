@@ -8,7 +8,6 @@ const BookmarkProvider = ({ children }) => {
     const savedBookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
     return savedBookmarks;
   });
-  console.log(bookmarks);
 
   useEffect(() => {
     if (bookmarks.length > 0) {

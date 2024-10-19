@@ -8,12 +8,6 @@ import movie from "/assets/icon-category-movie.svg";
 import BookmarkButton from "./BookmarkButton";
 import PlayButton from "./PlayButton";
 
-/**
- *
- * TODO: remove default values for props
- * TODO: if statement for if category is movie or tv show
- *
- */
 function TrendingCard(props) {
   const {
     smallThumbnail = smallT,

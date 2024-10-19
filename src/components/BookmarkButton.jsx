@@ -2,11 +2,6 @@ import { Box, IconButton, Icon } from "@chakra-ui/react";
 import { BookmarkContext } from "./BookmarkContext";
 import { useContext } from "react";
 
-/**
- *
- * TODO: add if bookmarked, then change to other icon
- */
-
 function BookmarkButton({ title }) {
   const { bookmarks, toggleBookmark } = useContext(BookmarkContext);
 
