@@ -1,10 +1,15 @@
-import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SeachBar";
 import movies from "../../src/data.json";
 import MovieCard from "../components/MovieCard";
+import useSearch from "../hooks/useSearch";
+import { useState } from "react";
 
 function MoviesPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredMovies = useSearch(movies, searchTerm);
   return (
     <Box
       backgroundColor={"brand.darkBlue"}
@@ -30,47 +35,65 @@ function MoviesPage() {
         marginInlineStart={{ base: 4, md: "1.5625rem", lg: 9 }}
         overflow={"hidden"}
       >
-        <SearchBar placeholderText={"Search for movies"} />
-        {/* ----- movies section ----- */}
-        <Box
-          marginBlockStart={{ base: 6, md: "2.0625rem", lg: "2.125rem" }}
-          maxWidth={"100%"}
-          display={"flex"}
-          flexDirection={"column"}
-          gap={{ base: "1rem", md: "1.5625rem" }}
-        >
-          <Heading
-            fontSize={{ base: "xl", md: "2rem" }}
+        <SearchBar
+          placeholderText={"Search for movies"}
+          onSearch={setSearchTerm}
+        />
+        {filteredMovies?.filter((movie) => movie.category === "Movie").length === 0 ? (
+          <Text
             color={"brand.white"}
-            letterSpacing={{ base: "-0.312px", md: "-0.5px" }}
-            fontWeight={"normal"}
-            fontFamily={"Outfit"}
+            fontSize={{ base: "lg", md: "2xl" }}
+            textAlign={"center"}
+            marginBlockStart={{ base: 6, md: "2.0625rem", lg: "2.125rem" }}
           >
-            Movies
-          </Heading>
-          <SimpleGrid
-            columns={{ base: 2, md: 3, lg: 4 }}
-            maxWidth={"100%"}
-            paddingInlineEnd={"1.5625rem"}
-            columnGap={{ base: "0.9375rem", md: "1.8125rem", lg: "2.5rem" }}
-            rowGap={{ base: "1rem", md: "1.5rem", lg: "2rem" }}
-          >
-            {movies.filter((movie) => movie.category === 'Movie').map((movie, index) => {
-              return (
-                <MovieCard
-                  key={index}
-                  title={movie.title}
-                  category={movie.category}
-                  rating={movie.rating}
-                  year={movie.year}
-                  smallThumbnail={movie?.thumbnail?.regular?.small}
-                  mediumThumbnail={movie?.thumbnail?.regular?.medium}
-                  largeThumbnail={movie?.thumbnail?.regular?.large}
-                />
-              );
-            })}
-          </SimpleGrid>
-        </Box>
+            No results found!
+          </Text>
+        ) : (
+          <>
+            {/* ----- movies section ----- */}
+            <Box
+              marginBlockStart={{ base: 6, md: "2.0625rem", lg: "2.125rem" }}
+              maxWidth={"100%"}
+              display={"flex"}
+              flexDirection={"column"}
+              gap={{ base: "1rem", md: "1.5625rem" }}
+            >
+              <Heading
+                fontSize={{ base: "xl", md: "2rem" }}
+                color={"brand.white"}
+                letterSpacing={{ base: "-0.312px", md: "-0.5px" }}
+                fontWeight={"normal"}
+                fontFamily={"Outfit"}
+              >
+                Movies
+              </Heading>
+              <SimpleGrid
+                columns={{ base: 2, md: 3, lg: 4 }}
+                maxWidth={"100%"}
+                paddingInlineEnd={"1.5625rem"}
+                columnGap={{ base: "0.9375rem", md: "1.8125rem", lg: "2.5rem" }}
+                rowGap={{ base: "1rem", md: "1.5rem", lg: "2rem" }}
+              >
+                {filteredMovies
+                  .filter((movie) => movie.category === "Movie")
+                  .map((movie, index) => {
+                    return (
+                      <MovieCard
+                        key={index}
+                        title={movie.title}
+                        category={movie.category}
+                        rating={movie.rating}
+                        year={movie.year}
+                        smallThumbnail={movie?.thumbnail?.regular?.small}
+                        mediumThumbnail={movie?.thumbnail?.regular?.medium}
+                        largeThumbnail={movie?.thumbnail?.regular?.large}
+                      />
+                    );
+                  })}
+              </SimpleGrid>
+            </Box>
+          </>
+        )}
       </Box>
     </Box>
   );

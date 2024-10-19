@@ -1,16 +1,27 @@
 import { HStack, Icon, Input } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
 import { css } from "@emotion/react";
+import { useState, useEffect } from "react";
 
-function SearchBar(props) {
-  const { placeholderText } = props;
+function SearchBar({ placeholderText, onSearch }) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    onSearch(value)
+  };
+
+  useEffect(() => {
+  }, [searchTerm]);
+
   return (
     <HStack
       spacing={{ base: 4, md: 6 }}
       fontFamily={"Outfit"}
       justifyContent={"center"}
       color={"brand.white"}
-      width={{lg: '90%'}}
+      width={{ lg: "90%" }}
     >
       <Icon
         as={FiSearch}
@@ -18,6 +29,8 @@ function SearchBar(props) {
         alignSelf={"flex-start"}
       />
       <Input
+        onChange={handleInputChange}
+        value={searchTerm}
         variant={"flushed"}
         placeholder={placeholderText}
         paddingBottom={"0.9375rem"}
